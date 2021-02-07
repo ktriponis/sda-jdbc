@@ -13,8 +13,8 @@ public class PirmaUzduotis {
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
 
             MovieDAO movieDAO = new MovieDAOImpl(conn);
+            movieDAO.deleteTable();
             movieDAO.createTable();
-
 
             createMovie("Interstellar", conn);
             createMovie("100", conn);

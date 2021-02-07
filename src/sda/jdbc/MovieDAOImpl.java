@@ -16,8 +16,8 @@ public class MovieDAOImpl implements MovieDAO {
 
     @Override
     public void createTable() {
-        try (Statement createTable = connection.createStatement()) {
-            createTable.execute("CREATE TABLE IF NOT EXISTS MOVIES (" +
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute("CREATE TABLE IF NOT EXISTS MOVIES (" +
                     "id INTEGER AUTO_INCREMENT," +
                     "title VARCHAR(255)," +
                     "genre VARCHAR(255)," +
@@ -30,7 +30,11 @@ public class MovieDAOImpl implements MovieDAO {
 
     @Override
     public void deleteTable() {
-
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute("DROP TABLE IF EXISTS MOVIES");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @Override
