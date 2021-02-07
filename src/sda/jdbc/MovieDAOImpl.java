@@ -1,6 +1,7 @@
 package sda.jdbc;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,11 +78,7 @@ public class MovieDAOImpl implements MovieDAO {
             if (stmt.execute()) {
                 ResultSet resultSet = stmt.getResultSet();
                 if (resultSet.next()) {
-                    return Optional.of(new Movie(
-                            resultSet.getInt("id"),
-                            resultSet.getString("title"),
-                            resultSet.getString("genre"),
-                            resultSet.getInt("yearOfRelease")));
+                    return Optional.of(mapMovie(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -92,6 +89,23 @@ public class MovieDAOImpl implements MovieDAO {
 
     @Override
     public List<Movie> findAll() {
-        return null;
+        List<Movie> movies = new ArrayList<>();
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM MOVIES");
+            while (resultSet.next()) {
+                movies.add(mapMovie(resultSet));
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return movies;
+    }
+
+    private static Movie mapMovie(ResultSet resultSet) throws SQLException {
+        return new Movie(
+                resultSet.getInt("id"),
+                resultSet.getString("title"),
+                resultSet.getString("genre"),
+                resultSet.getInt("yearOfRelease"));
     }
 }

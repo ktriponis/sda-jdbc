@@ -1,8 +1,10 @@
 package sda.jdbc;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class PirmaUzduotis {
+public class Pagrindinis {
 
     private static final String URL = "jdbc:h2:mem:theater";
     private static final String USER = "sa";
@@ -30,21 +32,10 @@ public class PirmaUzduotis {
                     .orElse("Nerasta"));
 
             System.out.println("Visi Filmai: ");
-            printMovies(conn);
+            movieDAO.findAll().forEach(System.out::println);
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
-    }
-
-    private static void printMovies(Connection conn) throws SQLException {
-        try (Statement selectMovies = conn.createStatement()) {
-            ResultSet resultSet = selectMovies.executeQuery("SELECT * FROM MOVIES");
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String title = resultSet.getString("title");
-                System.out.println("id: " + id + "; title: " + title);
-            }
         }
     }
 }
