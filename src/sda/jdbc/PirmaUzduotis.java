@@ -20,8 +20,7 @@ public class PirmaUzduotis {
             movieDAO.createMovie(new Movie("100", "Action", 2001));
             movieDAO.createMovie(new Movie("Tony", "Horor", 2002));
 
-            System.out.println("Pries:");
-            printMovies(conn);
+            movieDAO.deleteMovie(2);
 
             try (PreparedStatement updateMovie = conn.prepareStatement("UPDATE MOVIES SET title = ? WHERE id = ?")) {
                 updateMovie.setString(1, "A.I.");
@@ -29,7 +28,6 @@ public class PirmaUzduotis {
                 updateMovie.execute();
             }
 
-            System.out.println("Po:");
             printMovies(conn);
 
         } catch (SQLException e) {

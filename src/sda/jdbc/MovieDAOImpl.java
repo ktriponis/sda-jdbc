@@ -48,13 +48,18 @@ public class MovieDAOImpl implements MovieDAO {
             stmt.setInt(3, movie.getYearOfRelease());
             stmt.execute();
         } catch (SQLException e) {
-            System.out.println("Nepavyko prideti filmo");
+            System.err.println(e.getMessage());
         }
     }
 
     @Override
     public void deleteMovie(int id) {
-
+        try (PreparedStatement stmt = connection.prepareStatement("DELETE FROM MOVIES WHERE id = ?")) {
+            stmt.setInt(1, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @Override
