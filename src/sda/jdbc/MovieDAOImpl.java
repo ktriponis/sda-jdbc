@@ -64,7 +64,13 @@ public class MovieDAOImpl implements MovieDAO {
 
     @Override
     public void updateMoviesTitle(int id, String newTitle) {
-
+        try (PreparedStatement stmt = connection.prepareStatement("UPDATE MOVIES SET title = ? WHERE id = ?")) {
+            stmt.setString(1, newTitle);
+            stmt.setInt(2, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @Override

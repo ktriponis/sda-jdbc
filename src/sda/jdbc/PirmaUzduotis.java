@@ -16,17 +16,13 @@ public class PirmaUzduotis {
             movieDAO.deleteTable();
             movieDAO.createTable();
 
-            movieDAO.createMovie(new Movie("Interstellar", "Fantasy", 2004));
-            movieDAO.createMovie(new Movie("100", "Action", 2001));
-            movieDAO.createMovie(new Movie("Tony", "Horor", 2002));
+            movieDAO.createMovie(new Movie("Interstellar", "Sci-fi/", 2014));
+            movieDAO.createMovie(new Movie("300", "Action", 2007));
+            movieDAO.createMovie(new Movie("Tony", "Horror", 1986));
 
             movieDAO.deleteMovie(2);
 
-            try (PreparedStatement updateMovie = conn.prepareStatement("UPDATE MOVIES SET title = ? WHERE id = ?")) {
-                updateMovie.setString(1, "A.I.");
-                updateMovie.setInt(2, 1);
-                updateMovie.execute();
-            }
+            movieDAO.updateMoviesTitle(3, "It");
 
             printMovies(conn);
 
