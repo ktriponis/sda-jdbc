@@ -1,17 +1,18 @@
-package sda.jdbc;
+package sda.db.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Pagrindinis {
+public class Main {
 
+    private static final String DRIVER = "org.h2.Driver";
     private static final String URL = "jdbc:h2:mem:theater";
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
     public static void main(String[] args) throws ClassNotFoundException {
-        Class.forName("org.h2.Driver");
+        Class.forName(DRIVER);
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
 
             MovieDAO movieDAO = new MovieDAOImpl(conn);

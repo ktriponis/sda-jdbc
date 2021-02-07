@@ -1,4 +1,4 @@
-package sda.jdbc;
+package sda.db.jdbc;
 
 import java.util.List;
 import java.util.Optional;

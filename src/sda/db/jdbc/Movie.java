@@ -1,4 +1,4 @@
-package sda.jdbc;
+package sda.db.jdbc;
 
 public class Movie {
 

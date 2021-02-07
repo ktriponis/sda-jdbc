@@ -1,4 +1,4 @@
-package sda.jdbc;
+package sda.db.jdbc;
 
 import java.sql.*;
 import java.util.ArrayList;
