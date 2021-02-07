@@ -23,7 +23,7 @@ public class MovieDAOImpl implements MovieDAO {
                     "yearOfRelease INTEGER," +
                     "PRIMARY KEY (id))");
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new DatabaseActionException(e);
         }
     }
 
@@ -32,7 +32,7 @@ public class MovieDAOImpl implements MovieDAO {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute("DROP TABLE IF EXISTS MOVIES");
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new DatabaseActionException(e);
         }
     }
 
@@ -46,7 +46,7 @@ public class MovieDAOImpl implements MovieDAO {
             stmt.setInt(3, movie.getYearOfRelease());
             stmt.execute();
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new DatabaseActionException(e);
         }
     }
 
@@ -56,7 +56,7 @@ public class MovieDAOImpl implements MovieDAO {
             stmt.setInt(1, id);
             stmt.execute();
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new DatabaseActionException(e);
         }
     }
 
@@ -67,7 +67,7 @@ public class MovieDAOImpl implements MovieDAO {
             stmt.setInt(2, id);
             stmt.execute();
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new DatabaseActionException(e);
         }
     }
 
@@ -82,7 +82,7 @@ public class MovieDAOImpl implements MovieDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new DatabaseActionException(e);
         }
         return Optional.empty();
     }
@@ -96,7 +96,7 @@ public class MovieDAOImpl implements MovieDAO {
                 movies.add(mapMovie(resultSet));
             }
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            throw new DatabaseActionException(e);
         }
         return movies;
     }
