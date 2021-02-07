@@ -24,6 +24,12 @@ public class PirmaUzduotis {
 
             movieDAO.updateMoviesTitle(3, "It");
 
+            System.out.print("Paieskos Rezultatas: ");
+            System.out.println(movieDAO.findMovieById(1)
+                    .map(Object::toString)
+                    .orElse("Nerasta"));
+
+            System.out.println("Visi Filmai: ");
             printMovies(conn);
 
         } catch (SQLException e) {

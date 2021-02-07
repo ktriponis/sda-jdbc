@@ -1,9 +1,6 @@
 package sda.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,6 +72,21 @@ public class MovieDAOImpl implements MovieDAO {
 
     @Override
     public Optional<Movie> findMovieById(int id) {
+        try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM MOVIES WHERE id = ?")) {
+            stmt.setInt(1, id);
+            if (stmt.execute()) {
+                ResultSet resultSet = stmt.getResultSet();
+                if (resultSet.next()) {
+                    return Optional.of(new Movie(
+                            resultSet.getInt("id"),
+                            resultSet.getString("title"),
+                            resultSet.getString("genre"),
+                            resultSet.getInt("yearOfRelease")));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
         return Optional.empty();
     }
 

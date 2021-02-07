@@ -7,6 +7,13 @@ public class Movie {
     private String genre;
     private Integer yearOfRelease;
 
+    public Movie(Integer id, String title, String genre, Integer yearOfRelease) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+        this.yearOfRelease = yearOfRelease;
+    }
+
     public Movie(String title, String genre, Integer yearOfRelease) {
         this.title = title;
         this.genre = genre;
@@ -43,5 +50,15 @@ public class Movie {
 
     public void setYearOfRelease(Integer yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", yearOfRelease=" + yearOfRelease +
+                '}';
     }
 }
