@@ -1,6 +1,7 @@
 package sda.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -39,7 +40,16 @@ public class MovieDAOImpl implements MovieDAO {
 
     @Override
     public void createMovie(Movie movie) {
-
+        try (PreparedStatement stmt = connection.prepareStatement(
+                "INSERT INTO MOVIES (title, genre, yearOfRelease) VALUES(?, ?, ?)"
+        )) {
+            stmt.setString(1, movie.getTitle());
+            stmt.setString(2, movie.getGenre());
+            stmt.setInt(3, movie.getYearOfRelease());
+            stmt.execute();
+        } catch (SQLException e) {
+            System.out.println("Nepavyko prideti filmo");
+        }
     }
 
     @Override

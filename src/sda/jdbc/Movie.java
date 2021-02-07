@@ -7,8 +7,7 @@ public class Movie {
     private String genre;
     private Integer yearOfRelease;
 
-    public Movie(Integer id, String title, String genre, Integer yearOfRelease) {
-        this.id = id;
+    public Movie(String title, String genre, Integer yearOfRelease) {
         this.title = title;
         this.genre = genre;
         this.yearOfRelease = yearOfRelease;

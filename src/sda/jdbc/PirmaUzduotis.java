@@ -16,8 +16,9 @@ public class PirmaUzduotis {
             movieDAO.deleteTable();
             movieDAO.createTable();
 
-            createMovie("Interstellar", conn);
-            createMovie("100", conn);
+            movieDAO.createMovie(new Movie("Interstellar", "Fantasy", 2004));
+            movieDAO.createMovie(new Movie("100", "Action", 2001));
+            movieDAO.createMovie(new Movie("Tony", "Horor", 2002));
 
             System.out.println("Pries:");
             printMovies(conn);
@@ -44,14 +45,6 @@ public class PirmaUzduotis {
                 String title = resultSet.getString("title");
                 System.out.println("id: " + id + "; title: " + title);
             }
-        }
-    }
-
-    private static void createMovie(String title, Connection conn) {
-        try (Statement insertMovie = conn.createStatement()) {
-            insertMovie.execute("INSERT INTO MOVIES (title) VALUES('" + title + "')");
-        } catch (SQLException e) {
-            System.out.println("Nepavyko prideti filmo");
         }
     }
 }
